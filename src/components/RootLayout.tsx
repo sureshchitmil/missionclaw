@@ -67,7 +67,9 @@ export default function RootLayout() {
   const [gatewayStatus, setGatewayStatus] = useState<{ connected: boolean; checking: boolean }>({ connected: false, checking: true });
   const [systemInfo, setSystemInfo] = useState<{ totalMemory: string; usedMemory: string; percentage: number } | null>(null);
 
-  // Fetch projects from API on mount
+  // Fetch projects from API on mount and add to store
+  const { addTask } = useAppStore();
+  
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -81,6 +83,10 @@ export default function RootLayout() {
             const taskRes = await fetch(`/api/projects?projectId=${p.id}`);
             const taskData = await taskRes.json();
             if (taskData.tasks) {
+              // Add tasks to store
+              taskData.tasks.forEach((task: any) => {
+                addTask(task);
+              });
               allTasks.push(...taskData.tasks);
             }
           }
@@ -91,7 +97,7 @@ export default function RootLayout() {
       }
     };
     fetchProjects();
-  }, []);
+  }, [addTask]);
 
   // Sync store projects to local state
   useEffect(() => {
