@@ -183,28 +183,7 @@ The dashboard shows:
 2. Create schedules with cron expressions
 3. Agents will automatically pick up scheduled tasks
 
----
 
-## 🎨 UI/UX Design
-
-### Dark Theme (Default)
-| Element | Color |
-|---------|-------|
-| Background | `#0D1117` |
-| Cards | `#161B22` |
-| Accents | `#38BDF8` (Sky Blue) |
-| Success | `#22C55E` |
-| Warning | `#F59E0B` |
-| Error | `#EF4444` |
-
-### Light Theme
-| Element | Color |
-|---------|-------|
-| Background | `#F8FAFC` |
-| Cards | `#FFFFFF` |
-| Accents | `#0284C7` (Deep Blue) |
-
----
 
 ## 📦 Default Agents
 
