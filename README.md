@@ -21,6 +21,28 @@ Think of it as **Air Traffic Control for your AI Agents** 🛫
 
 ---
 
+## 📸 Screenshots
+
+### Dashboard
+![Dashboard](https://raw.githubusercontent.com/sureshchitmil/missionclaw/main/public/screenshots/dashboard.png)
+
+### Kanban Board
+![Kanban](https://raw.githubusercontent.com/sureshchitmil/missionclaw/main/public/screenshots/kanban.png)
+
+### Agent Forge
+![Agent Forge](https://raw.githubusercontent.com/sureshchitmil/missionclaw/main/public/screenshots/agent-forge.png)
+
+### Organization Chart
+![Org Chart](https://raw.githubusercontent.com/sureshchitmil/missionclaw/main/public/screenshots/org-chart.png)
+
+### Scheduler
+![Scheduler](https://raw.githubusercontent.com/sureshchitmil/missionclaw/main/public/screenshots/scheduler.png)
+
+### Settings
+![Settings](https://raw.githubusercontent.com/sureshchitmil/missionclaw/main/public/screenshots/settings.png)
+
+---
+
 ## 🎯 Key Features
 
 ### 1. 🗂️ Project-Scoped Workspace
