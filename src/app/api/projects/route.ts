@@ -111,6 +111,121 @@ const generateTasks = (projectName: string, description: string): string[] => {
   return tasks;
 };
 
+// Auto-generate missing fields based on project name
+const autoFillFields = (projectName: string, shortDescription?: string, tech?: string, fullPRD?: string, priority?: string, projectType?: string) => {
+  const name = projectName.toLowerCase();
+  const desc = (shortDescription || "").toLowerCase();
+  
+  // Auto-generate short description if not provided
+  let autoShortDesc = shortDescription;
+  if (!autoShortDesc) {
+    if (name.includes("landing page") || name.includes("website")) {
+      autoShortDesc = `Create a modern website for ${projectName}`;
+    } else if (name.includes("app") || name.includes("mobile")) {
+      autoShortDesc = `Build a mobile application - ${projectName}`;
+    } else if (name.includes("marketing") || name.includes("seo") || name.includes("ads")) {
+      autoShortDesc = `Digital marketing campaign for ${projectName}`;
+    } else {
+      autoShortDesc = `Project: ${projectName}`;
+    }
+  }
+  
+  // Auto-detect tech stack
+  let autoTech = tech;
+  if (!autoTech) {
+    const techs: string[] = [];
+    if (name.includes("next") || name.includes("website") || name.includes("landing") || name.includes("web")) {
+      techs.push("Next.js", "React", "Tailwind CSS", "TypeScript");
+    }
+    if (name.includes("mobile") || name.includes("app") || name.includes("ios") || name.includes("android")) {
+      techs.push("React Native", "Expo");
+    }
+    if (name.includes("api") || name.includes("backend")) {
+      techs.push("Node.js", "Express");
+    }
+    if (name.includes("database") || name.includes("data")) {
+      techs.push("PostgreSQL", "Supabase");
+    }
+    if (name.includes("marketing") || name.includes("seo")) {
+      techs.push("Google Analytics", "Search Console");
+    }
+    if (techs.length === 0) {
+      techs.push("Next.js", "React", "Tailwind CSS");
+    }
+    autoTech = techs.join(", ");
+  }
+  
+  // Auto-generate full PRD if not provided
+  let autoFullPRD = fullPRD;
+  if (!autoFullPRD) {
+    const prdSections: string[] = [];
+    if (name.includes("landing") || name.includes("website")) {
+      prdSections.push("1. Hero section with tagline and CTA");
+      prdSections.push("2. Services/Features section");
+      prdSections.push("3. About/Team section");
+      prdSections.push("4. Portfolio/Case studies");
+      prdSections.push("5. Testimonials");
+      prdSections.push("6. Contact form");
+      prdSections.push("7. Footer with links");
+    } else if (name.includes("app") || name.includes("mobile")) {
+      prdSections.push("1. User authentication");
+      prdSections.push("2. Home/Dashboard screen");
+      prdSections.push("3. Core features");
+      prdSections.push("4. Settings screen");
+      prdSections.push("5. Push notifications");
+    } else if (name.includes("marketing") || name.includes("seo")) {
+      prdSections.push("1. Keyword research");
+      prdSections.push("2. Competitor analysis");
+      prdSections.push("3. Content strategy");
+      prdSections.push("4. On-page SEO optimization");
+      prdSections.push("5. Backlink strategy");
+      prdSections.push("6. Monthly performance reports");
+    } else {
+      prdSections.push("1. Requirements gathering");
+      prdSections.push("2. Design phase");
+      prdSections.push("3. Development");
+      prdSections.push("4. Testing & QA");
+      prdSections.push("5. Deployment");
+      prdSections.push("6. Post-launch support");
+    }
+    autoFullPRD = prdSections.join("\n");
+  }
+  
+  // Auto-set priority
+  let autoPriority = priority;
+  if (!autoPriority) {
+    if (name.includes("urgent") || name.includes("asap") || name.includes("rush")) {
+      autoPriority = "urgent";
+    } else if (name.includes("important") || name.includes("priority")) {
+      autoPriority = "high";
+    } else {
+      autoPriority = "medium";
+    }
+  }
+  
+  // Auto-detect project type
+  let autoProjectType = projectType;
+  if (!autoProjectType) {
+    if (name.includes("marketing") || name.includes("seo") || name.includes("ads") || name.includes("social")) {
+      autoProjectType = "digital marketing";
+    } else if (name.includes("mobile") || name.includes("app") || name.includes("ios") || name.includes("android")) {
+      autoProjectType = "mobile development";
+    } else if (name.includes("website") || name.includes("landing") || name.includes("web")) {
+      autoProjectType = "web development";
+    } else {
+      autoProjectType = "general";
+    }
+  }
+  
+  return {
+    shortDescription: autoShortDesc,
+    tech: autoTech,
+    fullPRD: autoFullPRD,
+    priority: autoPriority,
+    projectType: autoProjectType
+  };
+};
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -120,11 +235,19 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Project name is required" }, { status: 400 });
     }
     
+    // Auto-fill missing fields
+    const autoFilled = autoFillFields(projectName, shortDescription, tech, fullPRD, priority, projectType);
+    const finalShortDesc = shortDescription || autoFilled.shortDescription;
+    const finalTech = tech || autoFilled.tech;
+    const finalFullPRD = fullPRD || autoFilled.fullPRD;
+    const finalPriority = priority || autoFilled.priority;
+    const finalProjectType = projectType || autoFilled.projectType;
+    
     // Determine team based on project type
-    const team = getTeamForProject(projectType || shortDescription || fullPRD || tech || projectName);
+    const team = getTeamForProject(finalProjectType || finalShortDesc || finalFullPRD || finalTech || projectName);
     
     // Generate tasks from project
-    const taskNames = generateTasks(projectName, shortDescription || fullPRD || "");
+    const taskNames = generateTasks(projectName, finalShortDesc || finalFullPRD || "");
     
     // Create project in store
     const projectId = `project-${Date.now()}`;
@@ -133,11 +256,12 @@ export async function POST(request: Request) {
     store.addProject({
       id: projectId,
       name: projectName,
-      shortDescription,
-      tech,
-      author,
-      fullPRD,
-      path: shortDescription || "", // Store short desc as path for reference
+      shortDescription: finalShortDesc,
+      tech: finalTech,
+      author: author || "Velo",
+      fullPRD: finalFullPRD,
+      priority: finalPriority,
+      path: finalShortDesc,
       createdAt: new Date(),
     });
     store.setActiveProject(projectId);

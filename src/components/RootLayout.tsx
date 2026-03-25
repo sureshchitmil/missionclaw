@@ -54,7 +54,7 @@ export default function RootLayout() {
   }, []);
   const [showCreateProject, setShowCreateProject] = useState(false);
   const [editingProject, setEditingProject] = useState<any>(null);
-  const [projects, setProjects] = useState<any[]>([]);
+  const [projects, setProjects] = useState<any[]>(storeProjects);
   const [tasks, setTasks] = useState<any[]>([]);
   const [newProject, setNewProject] = useState({
     name: "",
@@ -95,9 +95,7 @@ export default function RootLayout() {
 
   // Sync store projects to local state
   useEffect(() => {
-    if (storeProjects.length > 0) {
-      setProjects(storeProjects);
-    }
+    setProjects(storeProjects);
   }, [storeProjects]);
 
   useEffect(() => {
