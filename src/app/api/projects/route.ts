@@ -361,7 +361,7 @@ export async function POST(request: Request) {
       name: projectName,
       shortDescription: finalShortDesc,
       tech: finalTech,
-      author: "Suresh Chitmil",
+      author: "suresh chitmil",
       fullPRD: finalFullPRD,
       priority: finalPriority,
       path: finalShortDesc,
