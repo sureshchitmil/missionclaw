@@ -120,13 +120,13 @@ const autoFillFields = (projectName: string, shortDescription?: string, tech?: s
   let autoShortDesc = shortDescription;
   if (!autoShortDesc) {
     if (name.includes("landing page") || name.includes("website")) {
-      autoShortDesc = `Create a modern website for ${projectName}`;
+      autoShortDesc = `Create a modern, responsive website for ${projectName} with engaging UI/UX`;
     } else if (name.includes("app") || name.includes("mobile")) {
-      autoShortDesc = `Build a mobile application - ${projectName}`;
+      autoShortDesc = `Build a feature-rich mobile application for ${projectName}`;
     } else if (name.includes("marketing") || name.includes("seo") || name.includes("ads")) {
-      autoShortDesc = `Digital marketing campaign for ${projectName}`;
+      autoShortDesc = `Comprehensive digital marketing campaign to grow ${projectName}'s online presence`;
     } else {
-      autoShortDesc = `Project: ${projectName}`;
+      autoShortDesc = `Professional project development for ${projectName}`;
     }
   }
   
@@ -135,58 +135,161 @@ const autoFillFields = (projectName: string, shortDescription?: string, tech?: s
   if (!autoTech) {
     const techs: string[] = [];
     if (name.includes("next") || name.includes("website") || name.includes("landing") || name.includes("web")) {
-      techs.push("Next.js", "React", "Tailwind CSS", "TypeScript");
+      techs.push("Next.js 16", "React 19", "Tailwind CSS", "TypeScript", "Framer Motion");
     }
     if (name.includes("mobile") || name.includes("app") || name.includes("ios") || name.includes("android")) {
-      techs.push("React Native", "Expo");
+      techs.push("React Native", "Expo", "TypeScript");
     }
     if (name.includes("api") || name.includes("backend")) {
-      techs.push("Node.js", "Express");
+      techs.push("Node.js", "Express", "Prisma");
     }
     if (name.includes("database") || name.includes("data")) {
-      techs.push("PostgreSQL", "Supabase");
+      techs.push("PostgreSQL", "Supabase", "Redis");
     }
     if (name.includes("marketing") || name.includes("seo")) {
-      techs.push("Google Analytics", "Search Console");
+      techs.push("Google Analytics 4", "Search Console", "Ahrefs", "SEMrush");
     }
     if (techs.length === 0) {
-      techs.push("Next.js", "React", "Tailwind CSS");
+      techs.push("Next.js 16", "React 19", "Tailwind CSS", "TypeScript");
     }
     autoTech = techs.join(", ");
   }
   
-  // Auto-generate full PRD if not provided
+  // Auto-generate FULL detailed PRD if not provided
   let autoFullPRD = fullPRD;
   if (!autoFullPRD) {
     const prdSections: string[] = [];
+    
     if (name.includes("landing") || name.includes("website")) {
-      prdSections.push("1. Hero section with tagline and CTA");
-      prdSections.push("2. Services/Features section");
-      prdSections.push("3. About/Team section");
-      prdSections.push("4. Portfolio/Case studies");
-      prdSections.push("5. Testimonials");
-      prdSections.push("6. Contact form");
-      prdSections.push("7. Footer with links");
+      prdSections.push("## Project Overview");
+      prdSections.push(`Create a professional landing page/website for ${projectName}. The website should be modern, responsive, and optimized for conversions.`);
+      prdSections.push("");
+      prdSections.push("## Pages/Sections Required");
+      prdSections.push("1. **Hero Section** - Eye-catching headline, subheadline, CTA buttons, hero image/video");
+      prdSections.push("2. **About Us** - Company story, mission, vision, team introduction");
+      prdSections.push("3. **Services/Features** - Detailed breakdown of services offered with icons");
+      prdSections.push("4. **Portfolio/Work** - Showcasing past projects or case studies");
+      prdSections.push("5. **Testimonials** - Client reviews and success stories");
+      prdSections.push("6. **Pricing** - Service packages and pricing tiers (if applicable)");
+      prdSections.push("7. **FAQ** - Frequently asked questions");
+      prdSections.push("8. **Contact Form** - Full contact form with name, email, phone, message");
+      prdSections.push("9. **Footer** - Social links, quick links, newsletter signup");
+      prdSections.push("");
+      prdSections.push("## Technical Requirements");
+      prdSections.push("- Responsive design (Mobile, Tablet, Desktop)");
+      prdSections.push("- SEO optimized (meta tags, semantic HTML, fast loading)");
+      prdSections.push("- Accessible (WCAG compliant)");
+      prdSections.push("- Fast loading speed (<3s)");
+      prdSections.push("- Contact form with email notifications");
+      prdSections.push("- Social media integration");
+      prdSections.push("");
+      prdSections.push("## Design Guidelines");
+      prdSections.push("- Modern, clean aesthetic");
+      prdSections.push("- Professional color scheme matching brand");
+      prdSections.push("- Consistent typography");
+      prdSections.push("- Smooth animations and transitions");
+      prdSections.push("- High-quality images and icons");
+      
     } else if (name.includes("app") || name.includes("mobile")) {
-      prdSections.push("1. User authentication");
-      prdSections.push("2. Home/Dashboard screen");
-      prdSections.push("3. Core features");
-      prdSections.push("4. Settings screen");
-      prdSections.push("5. Push notifications");
-    } else if (name.includes("marketing") || name.includes("seo")) {
-      prdSections.push("1. Keyword research");
-      prdSections.push("2. Competitor analysis");
-      prdSections.push("3. Content strategy");
-      prdSections.push("4. On-page SEO optimization");
-      prdSections.push("5. Backlink strategy");
-      prdSections.push("6. Monthly performance reports");
+      prdSections.push("## Project Overview");
+      prdSections.push(`Build a comprehensive mobile application for ${projectName}. The app should be intuitive, performant, and provide excellent user experience.`);
+      prdSections.push("");
+      prdSections.push("## Core Features");
+      prdSections.push("1. **User Authentication** - Sign up, Login, Password reset, Social login");
+      prdSections.push("2. **Dashboard** - Main screen with key metrics and quick actions");
+      prdSections.push("3. **User Profile** - View and edit profile information");
+      prdSections.push("4. **Settings** - App preferences, notifications, privacy settings");
+      prdSections.push("5. **Push Notifications** - Real-time notifications for important updates");
+      prdSections.push("6. **Offline Support** - Core features work without internet");
+      prdSections.push("");
+      prdSections.push("## Technical Requirements");
+      prdSections.push("- Cross-platform (iOS and Android)");
+      prdSections.push("- Native-like performance");
+      prdSections.push("- Secure data storage");
+      prdSections.push("- API integration with backend");
+      prdSections.push("- App store ready (iOS App Store, Google Play)");
+      prdSections.push("");
+      prdSections.push("## UI/UX Guidelines");
+      prdSections.push("- Intuitive navigation");
+      prdSections.push("- Consistent design language");
+      prdSections.push("- Accessibility features");
+      prdSections.push("- Smooth animations");
+      
+    } else if (name.includes("marketing") || name.includes("seo") || name.includes("ads")) {
+      prdSections.push("## Project Overview");
+      prdSections.push(`Execute comprehensive digital marketing strategy for ${projectName} to increase online visibility, drive traffic, and generate leads.`);
+      prdSections.push("");
+      prdSections.push("## Marketing Channels");
+      prdSections.push("1. **Search Engine Optimization (SEO)**");
+      prdSections.push("   - Technical SEO audit and fixes");
+      prdSections.push("   - On-page SEO optimization");
+      prdSections.push("   - Content optimization");
+      prdSections.push("   - Link building strategy");
+      prdSections.push("");
+      prdSections.push("2. **Pay-Per-Click Advertising (PPC)**");
+      prdSections.push("   - Google Ads campaign setup");
+      prdSections.push("   - Ad copy creation");
+      prdSections.push("   - Landing page optimization");
+      prdSections.push("   - A/B testing");
+      prdSections.push("");
+      prdSections.push("3. **Social Media Marketing**");
+      prdSections.push("   - Content calendar creation");
+      prdSections.push("   - Post scheduling and management");
+      prdSections.push("   - Engagement strategy");
+      prdSections.push("   - Influencer outreach");
+      prdSections.push("");
+      prdSections.push("4. **Content Marketing**");
+      prdSections.push("   - Blog posts and articles");
+      prdSections.push("   - Infographics creation");
+      prdSections.push("   - Video content");
+      prdSections.push("   - Email newsletters");
+      prdSections.push("");
+      prdSections.push("## Deliverables");
+      prdSections.push("- Monthly performance reports");
+      prdSections.push("- SEO ranking improvements");
+      prdSections.push("- Increased organic traffic");
+      prdSections.push("- Lead generation metrics");
+      prdSections.push("- ROI analysis");
+      
     } else {
-      prdSections.push("1. Requirements gathering");
-      prdSections.push("2. Design phase");
-      prdSections.push("3. Development");
-      prdSections.push("4. Testing & QA");
-      prdSections.push("5. Deployment");
-      prdSections.push("6. Post-launch support");
+      // Default detailed PRD
+      prdSections.push("## Project Overview");
+      prdSections.push(`Comprehensive development project for ${projectName}. This document outlines all requirements, features, and technical specifications.`);
+      prdSections.push("");
+      prdSections.push("## Objectives");
+      prdSections.push("- Deliver a high-quality product");
+      prdSections.push("- Meet all functional requirements");
+      prdSections.push("- Ensure scalability and maintainability");
+      prdSections.push("- Provide excellent user experience");
+      prdSections.push("");
+      prdSections.push("## Scope of Work");
+      prdSections.push("1. Requirements gathering and analysis");
+      prdSections.push("2. UI/UX design and prototyping");
+      prdSections.push("3. Frontend development");
+      prdSections.push("4. Backend development");
+      prdSections.push("5. Testing (Unit, Integration, E2E)");
+      prdSections.push("6. Deployment to production");
+      prdSections.push("7. Documentation and training");
+      prdSections.push("8. Post-launch support and maintenance");
+      prdSections.push("");
+      prdSections.push("## Technical Stack");
+      prdSections.push("- Frontend: Modern JavaScript framework");
+      prdSections.push("- Backend: Node.js or suitable backend technology");
+      prdSections.push("- Database: PostgreSQL or alternative");
+      prdSections.push("- Deployment: Cloud platform (AWS/Vercel/Netlify)");
+      prdSections.push("");
+      prdSections.push("## Timeline");
+      prdSections.push("- Phase 1: Planning (1 week)");
+      prdSections.push("- Phase 2: Design (2 weeks)");
+      prdSections.push("- Phase 3: Development (4 weeks)");
+      prdSections.push("- Phase 4: Testing (1 week)");
+      prdSections.push("- Phase 5: Deployment (1 week)");
+      prdSections.push("");
+      prdSections.push("## Success Metrics");
+      prdSections.push("- All features working as specified");
+      prdSections.push("- No critical bugs");
+      prdSections.push("- Performance targets met");
+      prdSections.push("- Client approval on deliverables");
     }
     autoFullPRD = prdSections.join("\n");
   }
@@ -258,7 +361,7 @@ export async function POST(request: Request) {
       name: projectName,
       shortDescription: finalShortDesc,
       tech: finalTech,
-      author: author || "Velo",
+      author: "Suresh Chitmil",
       fullPRD: finalFullPRD,
       priority: finalPriority,
       path: finalShortDesc,
