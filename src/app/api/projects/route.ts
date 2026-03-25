@@ -385,11 +385,19 @@ export async function POST(request: Request) {
         ? teamAgents[index % teamAgents.length].id 
         : undefined;
       
+      // Auto-start first task, rest are todo
+      const taskStatus = index === 0 ? "in_progress" : "todo";
+      
+      // Auto-activate first agent
+      if (assignedAgent && index === 0) {
+        store.updateAgent(assignedAgent, { status: "active" });
+      }
+      
       store.addTask({
         id: taskId,
         title: taskName,
         description: `From project: ${projectName}`,
-        status: "todo",
+        status: taskStatus,
         projectId,
         assignedAgent,
         createdAt: new Date(),
@@ -398,6 +406,7 @@ export async function POST(request: Request) {
       
       assignedTasks.push({ 
         task: taskName, 
+        taskStatus,
         agent: assignedAgent 
           ? store.agents.find(a => a.id === assignedAgent)?.name || "Unassigned"
           : "Unassigned" 
