@@ -183,6 +183,42 @@ The dashboard shows:
 2. Create schedules with cron expressions
 3. Agents will automatically pick up scheduled tasks
 
+---
+
+## 🔌 OpenClaw Integration
+
+MissionClaw comes with a built-in **OpenClaw Skill** for seamless AI orchestration.
+
+### Installation
+
+The skill is automatically included in OpenClaw. If missing, install via:
+
+```bash
+# Using ClawHub
+clawhub install missionclaw
+
+# Or manually
+cp -r missionclaw ~/.openclaw/skills/
+```
+
+### Usage with Velo
+
+When running OpenClaw with Velo, you can:
+- Create projects via voice or chat
+- Assign tasks to agents
+- Check project status
+- View organization hierarchy
+
+```bash
+# Start MissionClaw first
+pm2 start missionclaw
+
+# Then run OpenClaw
+openclaw start
+```
+
+Open http://localhost:3000 to access the visual interface.
+
 
 
 ## 📦 Default Agents
