@@ -499,11 +499,16 @@ export async function GET(request: Request) {
     return NextResponse.json(report);
   }
   
-  // List all projects
+  // List all projects - return all fields
   return NextResponse.json({
     projects: store.projects.map(p => ({
       id: p.id,
       name: p.name,
+      shortDescription: p.shortDescription || "",
+      tech: p.tech || "",
+      author: p.author || "",
+      fullPRD: p.fullPRD || "",
+      priority: p.priority || "medium",
       createdAt: p.createdAt,
       taskCount: store.tasks.filter(t => t.projectId === p.id).length,
       completedCount: store.tasks.filter(t => t.projectId === p.id && t.status === "done").length,
